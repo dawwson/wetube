@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "유튜브 클론코딩",
   "scripts": {
-    "start": "node index.js"
+    "dev": "nodemon babel-node index.js"
   },
   "repository": {
     "type": "git",
@@ -14,5 +14,14 @@
   "bugs": {
     "url": "https://github.com/dawwson/wetube/issues"
   },
-  "homepage": "https://github.com/dawwson/wetube#readme"
+  "homepage": "https://github.com/dawwson/wetube#readme",
+  "dependencies": {
+    "express": "^4.18.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@babel/node": "^7.23.9",
+    "@babel/preset-env": "^7.24.0",
+    "nodemon": "^3.1.0"
+  }
 }
