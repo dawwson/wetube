@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "유튜브 클론코딩",
   "scripts": {
-    "dev": "nodemon babel-node index.js"
+    "dev": "nodemon --exec babel-node src/server.js"
   },
   "repository": {
     "type": "git",
