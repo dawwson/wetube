@@ -16,7 +16,8 @@
   },
   "homepage": "https://github.com/dawwson/wetube#readme",
   "dependencies": {
-    "express": "^4.18.3"
+    "express": "^4.18.3",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
