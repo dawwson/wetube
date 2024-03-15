@@ -6,6 +6,13 @@ export const login = (req, res) => {
   res.send("Login");
 };
 
+export const logout = (req, res) => {
+  res.send("Logout");
+};
+
+export const seeUser = (req, res) => {
+  res.send("See User");
+};
 export const editUser = (req, res) => {
   res.send("Edit User");
 };

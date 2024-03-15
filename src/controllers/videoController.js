@@ -2,7 +2,7 @@ export const trending = (req, res) => {
   res.send("Home page videos");
 };
 
-export const search = (req, res) => {
+export const searchVideo = (req, res) => {
   res.send("Search");
 };
 
@@ -16,4 +16,8 @@ export const editVideo = (req, res) => {
 
 export const deleteVideo = (req, res) => {
   res.send("Delete Video");
+};
+
+export const uploadVideo = (req, res) => {
+  res.send("Upload Video");
 };
