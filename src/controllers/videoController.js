@@ -1,5 +1,5 @@
 export const trending = (req, res) => {
-  res.render("home");
+  res.render("home", { pageTitle: "Home" });
 };
 
 export const searchVideo = (req, res) => {
@@ -7,11 +7,11 @@ export const searchVideo = (req, res) => {
 };
 
 export const watchVideo = (req, res) => {
-  res.render("watch");
+  res.render("watch", { pageTitle: "Watch" });
 };
 
 export const editVideo = (req, res) => {
-  res.render("edit");
+  res.render("edit", { pageTitle: "Edit" });
 };
 
 export const deleteVideo = (req, res) => {
