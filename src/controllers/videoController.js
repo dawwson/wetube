@@ -11,7 +11,7 @@ export const watchVideo = (req, res) => {
 };
 
 export const editVideo = (req, res) => {
-  res.send("Edit Video");
+  res.render("edit");
 };
 
 export const deleteVideo = (req, res) => {
