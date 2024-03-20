@@ -27,5 +27,5 @@ export const deleteVideo = (req, res) => {
 };
 
 export const uploadVideo = (req, res) => {
-  res.send("Upload Video");
+  res.render("Upload", { pageTitle: "Upload Video", user });
 };
