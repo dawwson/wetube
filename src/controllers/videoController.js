@@ -1,33 +1,33 @@
-const fakeUser = { username: "Nico", loggedIn: true };
+const user = { username: "Nico", loggedIn: true };
+const videos = [
+  {
+    title: "Video #1",
+    rating: 5,
+    comments: 2,
+    createdAt: "2 minutes ago",
+    views: 10,
+    id: 1,
+  },
+  {
+    title: "Video #2",
+    rating: 5,
+    comments: 2,
+    createdAt: "2 minutes ago",
+    views: 10,
+    id: 2,
+  },
+  {
+    title: "Video #3",
+    rating: 5,
+    comments: 2,
+    createdAt: "2 minutes ago",
+    views: 10,
+    id: 3,
+  },
+];
 
 export const trending = (req, res) => {
-  const videos = [
-    {
-      title: "Video #1",
-      rating: 5,
-      comments: 2,
-      createdAt: "2 minutes ago",
-      views: 10,
-      id: 1,
-    },
-    {
-      title: "Video #2",
-      rating: 5,
-      comments: 2,
-      createdAt: "2 minutes ago",
-      views: 10,
-      id: 2,
-    },
-    {
-      title: "Video #3",
-      rating: 5,
-      comments: 2,
-      createdAt: "2 minutes ago",
-      views: 10,
-      id: 3,
-    },
-  ];
-  res.render("home", { pageTitle: "Home", fakeUser, videos });
+  res.render("home", { pageTitle: "Home", user, videos });
 };
 
 export const searchVideo = (req, res) => {
@@ -35,7 +35,10 @@ export const searchVideo = (req, res) => {
 };
 
 export const watchVideo = (req, res) => {
-  res.render("watch", { pageTitle: "Watch" });
+  const { id } = req.params;
+  const video = videos[id - 1];
+
+  res.render("watch", { pageTitle: `Watching ${video.title}`, user, video });
 };
 
 export const editVideo = (req, res) => {
