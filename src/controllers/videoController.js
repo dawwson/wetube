@@ -1,5 +1,7 @@
+const fakeUser = { username: "Nico", loggedIn: true };
+
 export const trending = (req, res) => {
-  res.render("home", { pageTitle: "Home" });
+  res.render("home", { pageTitle: "Home", fakeUser });
 };
 
 export const searchVideo = (req, res) => {
