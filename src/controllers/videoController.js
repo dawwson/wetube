@@ -42,7 +42,10 @@ export const watchVideo = (req, res) => {
 };
 
 export const editVideo = (req, res) => {
-  res.render("edit", { pageTitle: "Edit" });
+  const { id } = req.params;
+  const video = videos[id - 1];
+
+  res.render("edit", { pageTitle: `Editing: ${video.title}`, user, video });
 };
 
 export const deleteVideo = (req, res) => {
