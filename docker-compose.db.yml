@@ -1,0 +1,19 @@
+# 개발 환경에서만 사용합니다.
+version: "3.8"
+
+services:
+  db:
+    # Docker Hub에서 이미지 다운로드
+    image: mongo:latest
+    # 컨테이너 이름 지정
+    container_name: mongodb-container
+    # <로컬:컨테이너> 포트 바인딩
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    # 환경변수 설정
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+    # <로컬:컨테이너> 볼륨 마운팅
+    volumes:
+      - ./data/mongo:/data/db
