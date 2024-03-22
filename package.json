@@ -19,6 +19,7 @@
   "homepage": "https://github.com/dawwson/wetube#readme",
   "dependencies": {
     "express": "^4.18.3",
+    "mongoose": "^8.2.3",
     "morgan": "^1.10.0",
     "pug": "^3.0.2"
   },
