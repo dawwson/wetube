@@ -33,8 +33,12 @@ export const editVideo = async (req, res) => {
   return res.render("edit", { pageTitle: `Edit ${video.title}`, video });
 };
 
-export const deleteVideo = (req, res) => {
-  res.send("Delete Video");
+export const deleteVideo = async (req, res) => {
+  const { id } = req.params;
+
+  await Video.findByIdAndDelete(id);
+
+  return res.redirect("/");
 };
 
 export const uploadVideo = (req, res) => {
