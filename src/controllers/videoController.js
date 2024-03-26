@@ -13,10 +13,12 @@ export const searchVideo = (req, res) => {
   res.send("Search");
 };
 
-export const watchVideo = (req, res) => {
+export const watchVideo = async (req, res) => {
   const { id } = req.params;
 
-  res.render("watch", { pageTitle: `Watching ` });
+  const video = await Video.findById(id);
+
+  res.render("watch", { pageTitle: video.title, video });
 };
 
 export const editVideo = (req, res) => {
