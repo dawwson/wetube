@@ -3,17 +3,23 @@ version: "3.8"
 
 services:
   db:
-    # Docker Hub에서 이미지 다운로드
+    # Docker Hub에서 이미지 다운로드(version 7.x)
     image: mongo:latest
     # 컨테이너 이름 지정
     container_name: mongodb-container
     # <로컬:컨테이너> 포트 바인딩
     ports:
-      - ${DB_PORT}:${DB_PORT}
+      - ${DB_PORT}:27017
+    env_file:
+      - .env
     # 환경변수 설정
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+      # 생성할 사용자 지정
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_ADMIN_PASSWORD}
+      # mongo-init.js에서 사용할 데이터베이스 지정
+      MONGO_INITDB_DATABASE: admin
     # <로컬:컨테이너> 볼륨 마운팅
     volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
       - ./data/mongo:/data/db
