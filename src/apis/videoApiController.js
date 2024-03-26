@@ -1,10 +1,22 @@
 import Video from "../models/Video";
 
-export const editVideo = (req, res) => {
+export const editVideo = async (req, res) => {
   const { id } = req.params;
-  const { title } = req.body;
+  const { title, description, hashtags } = req.body;
+  const isExists = Video.exists({ _id: id });
+  if (!isExists) {
+    return res.render("404", { pageTitle: "Video not found." });
+  }
 
-  res.redirect(`/videos/${id}`);
+  await Video.findByIdAndUpdate(id, {
+    title,
+    description,
+    hashtags: hashtags
+      .split(",")
+      .map((word) => (word.startsWith("#") ? word : `#${word}`)),
+  });
+
+  return res.redirect(`/videos/${id}`);
 };
 
 export const uploadVideo = async (req, res) => {
