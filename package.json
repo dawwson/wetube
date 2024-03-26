@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "유튜브 클론코딩",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js",
+    "dev": "nodemon --exec babel-node src/init",
     "start:db": "docker-compose -f docker-compose.db.yml --env-file .env up -d",
     "stop:db": "docker-compose -f docker-compose.db.yml --env-file .env down"
   },
