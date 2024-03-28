@@ -5,7 +5,7 @@ export const createUser = async (req, res) => {
     req.body;
 
   if (password !== confirmPassword) {
-    return res.render("pages/join", {
+    return res.status(400).render("pages/join", {
       pageTitle: "Join",
       errorMessage: "Password confirmation does not match.",
     });
@@ -13,7 +13,7 @@ export const createUser = async (req, res) => {
 
   const isUsernameExists = await User.exists({ username });
   if (isUsernameExists) {
-    return res.render("pages/join", {
+    return res.status(400).render("pages/join", {
       pageTitle: "Join",
       errorMessage: "This username is already taken.",
     });
@@ -21,7 +21,7 @@ export const createUser = async (req, res) => {
 
   const isEmailExists = await User.exists({ email });
   if (isEmailExists) {
-    return res.render("pages/join", {
+    return res.status(400).render("pages/join", {
       pageTitle: "Join",
       errorMessage: "This email is already taken.",
     });
