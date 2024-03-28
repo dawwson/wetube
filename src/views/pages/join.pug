@@ -3,7 +3,7 @@ extends ../index
 block content 
   if errorMessage
     span=errorMessage
-  form(method="POST", action="/api/users")
+  form(method="POST", action="/api/join")
     input(
       name="email", 
       placeholder="Email",
@@ -44,3 +44,7 @@ block content
       type="submit",
       value="Join"
     )
+  hr
+  div 
+    span Already have an account? 
+    a(href="/login") Log in now &rarr;
