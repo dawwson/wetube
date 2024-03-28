@@ -1,6 +1,8 @@
 extends ../index
 
 block content 
+  if errorMessage
+    span=errorMessage
   form(method="POST", action="/api/users")
     input(
       name="email", 
@@ -17,6 +19,12 @@ block content
     input(
       name="password", 
       placeholder="Password",
+      type="text", 
+      required
+    )
+    input(
+      name="confirmPassword", 
+      placeholder="Confirm Password",
       type="text", 
       required
     )
