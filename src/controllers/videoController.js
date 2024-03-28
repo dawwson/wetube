@@ -3,7 +3,7 @@ import Video from "../models/Video";
 export const home = async (req, res) => {
   const videos = await Video.find({}).sort({ createdAt: "desc" });
 
-  return res.render("home", {
+  return res.render("pages/home", {
     pageTitle: "Home",
     videos,
   });
@@ -18,7 +18,7 @@ export const searchVideo = async (req, res) => {
       title: { $regex: new RegExp(keyword, "i") },
     });
   }
-  return res.render("search", { pageTitle: "Search", videos });
+  return res.render("pages/search", { pageTitle: "Search", videos });
 };
 
 export const watchVideo = async (req, res) => {
@@ -26,9 +26,9 @@ export const watchVideo = async (req, res) => {
   const video = await Video.findById(id);
 
   if (!video) {
-    return res.render("404", { pageTitle: "Video not found." });
+    return res.render("pages/404", { pageTitle: "Video not found." });
   }
-  return res.render("watch", { pageTitle: video.title, video });
+  return res.render("pages/watch", { pageTitle: video.title, video });
 };
 
 export const editVideo = async (req, res) => {
@@ -36,9 +36,9 @@ export const editVideo = async (req, res) => {
   const video = await Video.findById(id);
 
   if (!video) {
-    return res.render("404", { pageTitle: "Video not found." });
+    return res.render("pages/404", { pageTitle: "Video not found." });
   }
-  return res.render("edit", { pageTitle: `Edit ${video.title}`, video });
+  return res.render("pages/edit", { pageTitle: `Edit ${video.title}`, video });
 };
 
 export const deleteVideo = async (req, res) => {
@@ -50,5 +50,5 @@ export const deleteVideo = async (req, res) => {
 };
 
 export const uploadVideo = (req, res) => {
-  res.render("Upload", { pageTitle: "Upload Video" });
+  res.render("pages/upload", { pageTitle: "Upload Video" });
 };
