@@ -1,5 +1,5 @@
 export const join = (req, res) => {
-  res.send("Join");
+  res.render("pages/join", { pageTitle: "Create Account" });
 };
 
 export const login = (req, res) => {
