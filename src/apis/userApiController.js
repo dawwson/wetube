@@ -1,6 +1,6 @@
 import User from "../models/User";
 
-export const createUser = async (req, res) => {
+export const joinUser = async (req, res) => {
   const { email, username, password, confirmPassword, name, location } =
     req.body;
 
@@ -27,12 +27,19 @@ export const createUser = async (req, res) => {
     });
   }
 
-  User.create({
-    email,
-    username,
-    password,
-    name,
-    location,
-  });
-  return res.redirect("/login");
+  try {
+    User.create({
+      email,
+      username,
+      password,
+      name,
+      location,
+    });
+    return res.redirect("/login");
+  } catch (error) {
+    return res.status(400).render("upload", {
+      pageTitle: "Create Account",
+      errorMessage: error._message,
+    });
+  }
 };
