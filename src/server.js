@@ -20,8 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
     secret: "Hello!",
-    resave: true,
-    saveUninitialized: true,
+    resave: false, // NOTE: session에 변경사항이 없으면 session을 다시 저장하지 않음
+    saveUninitialized: false, // NOTE: session에 변경사항이 있을 때(로그인)만 저장함
     store: MongoStore.create({
       mongoUrl: `mongodb://${username}:${password}@127.0.0.1:${port}/${database}?authSource=admin`,
     }),
