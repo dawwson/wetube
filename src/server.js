@@ -1,14 +1,17 @@
 import express from "express";
 import morgan from "morgan";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 
-import { localsMiddleware } from "./localsMiddleware";
+import config from "./config";
+import localsMiddleware from "./localsMiddleware";
 import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import apiRouter from "./routers/apiRouter";
 
 const app = express();
+const { username, password, port, database } = config.db;
 
 app.set("view engine", "pug");
 app.set("views", `${process.cwd()}/src/views`);
@@ -19,6 +22,9 @@ app.use(
     secret: "Hello!",
     resave: true,
     saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl: `mongodb://${username}:${password}@127.0.0.1:${port}/${database}?authSource=admin`,
+    }),
   })
 );
 app.use(localsMiddleware);
