@@ -1,15 +1,9 @@
-import dotenv from "dotenv";
 import mongoose from "mongoose";
+import config from "./config";
 
-dotenv.config();
-
-const dbName = process.env.DB_DATABASE;
-const dbPort = process.env.DB_PORT;
-const dbUser = process.env.DB_BACKEND_USERNAME;
-const dbPassword = process.env.DB_BACKEND_PASSWORD;
-
+const { username, password, port, database } = config.db;
 // NOTE: authSource는 사용자 인증정보 collection(= users)를 가진 데이터베이스 이름을 지정합니다.
-const mongoUri = `mongodb://${dbUser}:${dbPassword}@127.0.0.1:${dbPort}/${dbName}?authSource=admin`;
+const mongoUri = `mongodb://${username}:${password}@127.0.0.1:${port}/${database}?authSource=admin`;
 
 mongoose.connect(mongoUri, {
   autoCreate: true, // 모든 모델에 대한 콜렉션 자동 생성
