@@ -1,5 +1,6 @@
 import app from "./server";
 import "./db";
+import "./config";
 import "./models/Video";
 import "./models/User";
 
