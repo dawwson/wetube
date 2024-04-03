@@ -14,7 +14,6 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
   },
   name: {
     type: String,
@@ -23,9 +22,19 @@ const userSchema = new mongoose.Schema({
   location: {
     type: String,
   },
+  socialOnly: {
+    type: Boolean,
+    default: false,
+  },
+  avataUrl: {
+    type: String,
+  },
 });
 
 userSchema.pre("save", async function () {
+  if (this.socialOnly) {
+    return;
+  }
   this.password = await bcrypt.hash(this.password, 5);
 });
 
