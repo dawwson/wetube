@@ -7,6 +7,7 @@ const config = {
   cookieSecret: process.env.COOKIE_SECRET,
   mongoUrl: process.env.MONGO_URL,
   githubClientId: process.env.GITHUB_CLIENT_ID,
+  githubClientSecret: process.env.GITHUB_CLIENT_SECRET,
 };
 
 export default config;
