@@ -1,11 +1,11 @@
+import config from "./config";
 import app from "./server";
 import "./db";
-import "./config";
-import "./models/Video";
 import "./models/User";
+import "./models/Video";
 
-const PORT = 4000;
-
-app.listen(PORT, () => {
-  console.log(`✅ Server is listening on port http://localhost:${PORT} 🚀`);
+app.listen(config.port, () => {
+  console.log(
+    `✅ Server is listening on port http://localhost:${config.port} 🚀`
+  );
 });
