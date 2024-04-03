@@ -89,7 +89,8 @@ export const login = (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res.send("Logout");
+  req.session.destroy();
+  return res.redirect("/");
 };
 
 export const seeUser = (req, res) => {
