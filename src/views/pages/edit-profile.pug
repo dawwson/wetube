@@ -1,7 +1,19 @@
 extends ../index
 
 block content
-  form(method="POST", action="/api/users/edit")
+  img(
+    src=`/${user.avatarUrl}`, 
+    width="100", 
+    height="100"
+  )
+  form(method="POST", action="/api/users/edit", enctype="multipart/form-data")
+    label(for="avatar") Avatar
+    input(
+      type="file", 
+      id="avatar",
+      name="avatar",
+      accept="image/*"
+    )
     input(
       name="email", 
       placeholder="Email",

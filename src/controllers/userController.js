@@ -67,7 +67,7 @@ export const finishGithubLogin = async (req, res) => {
         username: userResponse.login,
         name: userResponse.name,
         socialOnly: true,
-        avataUrl: userResponse.avatar_url,
+        avatarUrl: userResponse.avatar_url,
       });
     }
 

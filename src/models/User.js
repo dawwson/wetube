@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  avataUrl: {
+  avatarUrl: {
     type: String,
   },
 });

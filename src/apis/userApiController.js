@@ -71,11 +71,23 @@ export const loginUser = async (req, res) => {
 };
 
 export const editUser = async (req, res) => {
-  // TODO: 이메일, username 중복 검사
+  // TODO: email, username 중복 검사
   // 현재 session의 user와 req.body로 넘어온 값이 다르다면 사용자가 수정한 것임!
-  const { _id } = req.session.user;
+  const { _id, avatarUrl } = req.session.user;
   const { email, username, name, location } = req.body;
-
+  const file = req.file;
+  /**
+{
+  fieldname: 'avatar',
+  originalname: 'IMG_1276.JPG',
+  encoding: '7bit',
+  mimetype: 'image/jpeg',
+  destination: 'uploads/',
+  filename: '178af69d130db4169590fc3287dfd239',
+  path: 'uploads/178af69d130db4169590fc3287dfd239',
+  size: 5163303
+}
+ */
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
@@ -83,6 +95,7 @@ export const editUser = async (req, res) => {
       username,
       name,
       location,
+      avatarUrl: file ? file.path : avatarUrl,
     },
     { new: true }
   );

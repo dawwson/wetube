@@ -1,3 +1,5 @@
+import multer from "multer";
+
 /**
  * res.locals 프로퍼티에 템플릿에서 사용할 데이터 담아주는 미들웨어
  * @param {*} req
@@ -40,3 +42,10 @@ export const userOnlyMiddleware = (req, res, next) => {
     return res.redirect("/login");
   }
 };
+
+/**
+ * 파일 업로드 처리 미들웨어
+ */
+export const uploadFilesMiddleware = multer({
+  dest: "uploads/", // 파일 저장 경로
+});

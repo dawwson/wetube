@@ -7,13 +7,22 @@ import {
   loginUser,
 } from "../apis/userApiController";
 import { editVideo, uploadVideo } from "../apis/videoApiController";
-import { publicOnlyMiddleware, userOnlyMiddleware } from "../middleware";
+import {
+  publicOnlyMiddleware,
+  uploadFilesMiddleware,
+  userOnlyMiddleware,
+} from "../middleware";
 
 const apiRouter = express.Router();
 
 apiRouter.post("/join", publicOnlyMiddleware, joinUser);
 apiRouter.post("/login", publicOnlyMiddleware, loginUser);
-apiRouter.post("/users/edit", userOnlyMiddleware, editUser);
+apiRouter.post(
+  "/users/edit",
+  userOnlyMiddleware,
+  uploadFilesMiddleware.single("avatar"),
+  editUser
+);
 apiRouter.post("/users/change-password", userOnlyMiddleware, changePassword);
 apiRouter.post("/videos/upload", userOnlyMiddleware, uploadVideo);
 apiRouter.post("/videos/:id/edit", userOnlyMiddleware, editVideo);
