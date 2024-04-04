@@ -1,0 +1,35 @@
+extends ../index
+
+block content
+  form(method="POST", action="/api/users/edit")
+    input(
+      name="email", 
+      placeholder="Email",
+      type="text",
+      value=user.email,
+      required
+    )
+    input(
+      name="username", 
+      placeholder="Username",
+      type="text", 
+      value=user.username,
+      required
+    )
+    input(
+      name="name", 
+      placeholder="Name",
+      type="text", 
+      value=user.name
+      required
+    )
+    input(
+      name="location", 
+      placeholder="Location",
+      type="text", 
+      value=user.location
+    )
+    input(
+      type="submit",
+      value="Update Profile"
+    )

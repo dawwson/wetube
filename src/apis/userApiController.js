@@ -69,3 +69,24 @@ export const loginUser = async (req, res) => {
 
   return res.redirect("/");
 };
+
+export const editUser = async (req, res) => {
+  // TODO: 이메일, username 중복 검사
+  // 현재 session의 user와 req.body로 넘어온 값이 다르다면 사용자가 수정한 것임!
+  const { _id } = req.session.user;
+  const { email, username, name, location } = req.body;
+
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      email,
+      username,
+      name,
+      location,
+    },
+    { new: true }
+  );
+  req.session.user = updatedUser;
+
+  return res.redirect("/users/edit");
+};

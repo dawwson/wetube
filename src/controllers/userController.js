@@ -96,8 +96,9 @@ export const logout = (req, res) => {
 export const seeUser = (req, res) => {
   res.send("See User");
 };
+
 export const editUser = (req, res) => {
-  res.send("Edit User");
+  res.render("pages/edit-profile", { pageTitle: "Edit Profile" });
 };
 
 export const deleteUser = (req, res) => {
