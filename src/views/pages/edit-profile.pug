@@ -33,3 +33,6 @@ block content
       type="submit",
       value="Update Profile"
     )
+    if !user.socialOnly
+      hr
+      a(href="/users/change-password") Change Password &rarr;
