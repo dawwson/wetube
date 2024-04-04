@@ -9,7 +9,7 @@ const apiRouter = express.Router();
 apiRouter.post("/join", publicOnlyMiddleware, joinUser);
 apiRouter.post("/login", publicOnlyMiddleware, loginUser);
 apiRouter.post("/users/edit", userOnlyMiddleware, editUser);
-apiRouter.post("/videos/upload", uploadVideo);
-apiRouter.post("/videos/:id/edit", editVideo);
+apiRouter.post("/videos/upload", userOnlyMiddleware, uploadVideo);
+apiRouter.post("/videos/:id/edit", userOnlyMiddleware, editVideo);
 
 export default apiRouter;
