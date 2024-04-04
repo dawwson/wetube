@@ -93,12 +93,16 @@ export const logout = (req, res) => {
   return res.redirect("/");
 };
 
-export const seeUser = (req, res) => {
-  res.send("See User");
-};
-
 export const editUser = (req, res) => {
   res.render("pages/edit-profile", { pageTitle: "Edit Profile" });
+};
+
+export const changePassword = (req, res) => {
+  res.render("pages/change-password", { pageTitle: "Change Password" });
+};
+
+export const seeUser = (req, res) => {
+  res.send("See User");
 };
 
 export const deleteUser = (req, res) => {

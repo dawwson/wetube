@@ -90,3 +90,31 @@ export const editUser = async (req, res) => {
 
   return res.redirect("/users/edit");
 };
+
+export const changePassword = async (req, res) => {
+  const { _id, password } = req.session.user;
+  const { oldPassword, newPassword, confirmNewPassword } = req.body;
+
+  const isMatch = await bcrypt.compare(oldPassword, password);
+  if (!isMatch) {
+    return res.status(400).render("pages/change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "The current password is incorrect.",
+    });
+  }
+
+  if (newPassword !== confirmNewPassword) {
+    return res.status(400).render("pages/change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "The password does not match the confirmation.",
+    });
+  }
+
+  // NOTE: 'save' pre middleware 거치기 위해 findByIdAndUpdate 사용하지 않음
+  const user = await User.findById(_id);
+  user.password = newPassword;
+  await user.save();
+
+  // TODO: send notification
+  return res.redirect("/users/logout");
+};
