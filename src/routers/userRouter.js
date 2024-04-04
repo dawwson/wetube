@@ -7,8 +7,7 @@ import {
   seeUser,
   startGithubLogin,
 } from "../controllers/userController";
-import userOnlyMiddleware from "../middlewares/userOnlyMiddleware";
-import publicOnlyMiddleware from "../middlewares/publicOnlyMiddleware";
+import { publicOnlyMiddleware, userOnlyMiddleware } from "../middleware";
 
 const userRouter = express.Router();
 

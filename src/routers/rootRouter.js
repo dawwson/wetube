@@ -2,7 +2,7 @@ import express from "express";
 
 import { join, login } from "../controllers/userController";
 import { searchVideo, home } from "../controllers/videoController";
-import publicOnlyMiddleware from "../middlewares/publicOnlyMiddleware";
+import { publicOnlyMiddleware } from "../middleware";
 
 const rootRouter = express.Router();
 

@@ -1,8 +1,8 @@
 import express from "express";
+
 import { editUser, joinUser, loginUser } from "../apis/userApiController";
 import { editVideo, uploadVideo } from "../apis/videoApiController";
-import userOnlyMiddleware from "../middlewares/userOnlyMiddleware";
-import publicOnlyMiddleware from "../middlewares/publicOnlyMiddleware";
+import { publicOnlyMiddleware, userOnlyMiddleware } from "../middleware";
 
 const apiRouter = express.Router();
 
