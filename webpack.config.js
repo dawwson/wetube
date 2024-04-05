@@ -2,22 +2,22 @@ const MiniCssExtractrPlugin = require("mini-css-extract-plugin");
 const path = require("path");
 
 module.exports = {
-  // 처리하고 싶은 파일의 경로
-  entry: "./src/client/js/main.js",
+  entry: "./src/client/js/main.js", // 처리하고 싶은 파일의 경로
   mode: "development",
+  watch: true, // entry의 파일이 수정되면 자동으로 webpack이 재실행됨
   plugins: [
     new MiniCssExtractrPlugin({
-      filename: "css/styles.css",
+      filename: "css/styles.css", // 추출한 css 파일 이름
     }),
   ],
   output: {
-    // 변환 결과물 파일 이름
-    filename: "js/main.js",
-    // 변환 결과물 경로
-    path: path.resolve(__dirname, "assets"),
+    clean: true, // 내보내기 전에 output 디렉토리 정리
+    filename: "js/main.js", // 변환한 파일 이름
+    path: path.resolve(__dirname, "assets"), // 변환한 파일 경로
   },
   module: {
     rules: [
+      // js 변환 규칙
       {
         test: /\.js$/,
         use: {
@@ -27,6 +27,7 @@ module.exports = {
           },
         },
       },
+      // scss 변환 규칙
       {
         test: /\.scss$/,
         use: [
