@@ -18,6 +18,7 @@ export const editVideo = async (req, res) => {
 };
 
 export const uploadVideo = async (req, res) => {
+  const file = req.file;
   const { title, description, hashtags } = req.body;
 
   try {
@@ -25,11 +26,12 @@ export const uploadVideo = async (req, res) => {
       title,
       description,
       hashtags: Video.formatHashtags(hashtags),
+      fileUrl: file.path,
     });
 
     return res.redirect("/");
   } catch (error) {
-    return res.status(400).render("upload", {
+    return res.status(400).render("pages/upload", {
       pageTitle: "Upload Video",
       errorMessage: error._message,
     });

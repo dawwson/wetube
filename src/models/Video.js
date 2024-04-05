@@ -11,7 +11,7 @@ const videoSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    minLength: 20,
+    minLength: 10,
   },
   hashtags: [
     {
@@ -20,6 +20,10 @@ const videoSchema = new mongoose.Schema({
       trim: true,
     },
   ],
+  fileUrl: {
+    type: String,
+    required: true,
+  },
   meta: {
     views: {
       type: Number,

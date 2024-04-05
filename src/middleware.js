@@ -46,6 +46,16 @@ export const userOnlyMiddleware = (req, res, next) => {
 /**
  * 파일 업로드 처리 미들웨어
  */
-export const uploadFilesMiddleware = multer({
-  dest: "uploads/", // 파일 저장 경로
+export const avatarUploadMiddleware = multer({
+  dest: "uploads/avatars/",
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB
+  },
+});
+
+export const videoUploadMiddleware = multer({
+  dest: "uploads/videos/",
+  limits: {
+    fileSize: 200 * 1024 * 1024, // 200MB
+  },
 });

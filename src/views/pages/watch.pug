@@ -1,6 +1,11 @@
 extends ../index
 
 block content 
+  video(
+    src=`/${video.fileUrl}`,
+    controls
+    width="1000px" 
+  )
   div
     p=video.description
     small=video.createdAt
