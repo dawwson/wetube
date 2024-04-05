@@ -10,7 +10,7 @@ import { userOnlyMiddleware } from "../middleware";
 const videoRouter = express.Router();
 
 videoRouter.get("/upload", userOnlyMiddleware, uploadVideo);
-videoRouter.get("/:id", userOnlyMiddleware, watchVideo);
+videoRouter.get("/:id", watchVideo);
 videoRouter.get("/:id/edit", userOnlyMiddleware, editVideo);
 videoRouter.get("/:id/delete", userOnlyMiddleware, deleteVideo);
 
