@@ -1,4 +1,9 @@
 extends ../index
+include ../mixins/video
 
 block content 
-  h1 hello
+  div
+    each video in user.videos
+      +video(video)
+    else
+      li Sorry nothing found.

@@ -24,13 +24,12 @@ export const searchVideo = async (req, res) => {
 
 export const watchVideo = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id);
-  const owner = await User.findById(video.owner);
+  const video = await Video.findById(id).populate("owner");
 
   if (!video) {
     return res.render("pages/404", { pageTitle: "Video not found." });
   }
-  return res.render("pages/watch", { pageTitle: video.title, video, owner });
+  return res.render("pages/watch", { pageTitle: video.title, video });
 };
 
 export const editVideo = async (req, res) => {

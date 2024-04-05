@@ -1,3 +1,4 @@
+import User from "../models/User";
 import Video from "../models/Video";
 
 export const editVideo = async (req, res) => {
@@ -23,13 +24,16 @@ export const uploadVideo = async (req, res) => {
   const { title, description, hashtags } = req.body;
 
   try {
-    await Video.create({
+    const newVideo = await Video.create({
       title,
       description,
       hashtags: Video.formatHashtags(hashtags),
       fileUrl: file.path,
       owner: user._id,
     });
+    const owner = await User.findById(user._id);
+    owner.videos.push(newVideo._id);
+    owner.save();
 
     return res.redirect("/");
   } catch (error) {
