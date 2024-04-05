@@ -1,7 +1,6 @@
 import config from "../config";
 import * as fetch from "node-fetch";
 import User from "../models/User";
-import Video from "../models/Video";
 
 export const startGithubLogin = (req, res) => {
   const baseUrl = "https://github.com/login/oauth/authorize";
@@ -104,7 +103,13 @@ export const changePassword = (req, res) => {
 
 export const seeUserProfile = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id).populate("videos");
+  const user = await User.findById(id).populate({
+    path: "videos",
+    populate: {
+      path: "owner",
+      mode: "User",
+    },
+  });
 
   if (!user) {
     return res.status(404).render("pages/404", { pageTitle: "User not found" });
