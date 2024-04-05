@@ -34,19 +34,34 @@ export const watchVideo = async (req, res) => {
 
 export const editVideo = async (req, res) => {
   const { id } = req.params;
+  const user = req.session.user;
   const video = await Video.findById(id);
 
   if (!video) {
     return res.render("pages/404", { pageTitle: "Video not found." });
   }
+
+  if (String(video.owner) !== String(user._id)) {
+    return res.status(403).redirect("/");
+  }
+
   return res.render("pages/edit", { pageTitle: `Edit ${video.title}`, video });
 };
 
 export const deleteVideo = async (req, res) => {
   const { id } = req.params;
+  const user = req.session.user;
+  const video = await Video.findById(id);
 
-  await Video.findByIdAndDelete(id);
+  if (!video) {
+    return res.render("pages/404", { pageTitle: "Video not found." });
+  }
 
+  if (String(video.owner) !== String(user._id)) {
+    return res.status(403).redirect("/");
+  }
+
+  await Video.deleteOne({ _id: id });
   return res.redirect("/");
 };
 

@@ -2,24 +2,33 @@ import User from "../models/User";
 import Video from "../models/Video";
 
 export const editVideo = async (req, res) => {
-  const { id } = req.params;
+  const userId = req.session.user._id;
+  const videoId = req.params.id;
   const { title, description, hashtags } = req.body;
-  const isExists = Video.exists({ _id: id });
-  if (!isExists) {
+
+  const video = await Video.findById(videoId);
+  if (!video) {
     return res.status(404).render("404", { pageTitle: "Video not found." });
   }
 
-  await Video.findByIdAndUpdate(id, {
-    title,
-    description,
-    hashtags: Video.formatHashtags(hashtags),
-  });
+  if (String(video.owner) !== String(userId)) {
+    return res.status(403).redirect("/");
+  }
 
-  return res.redirect(`/videos/${id}`);
+  await Video.updateOne(
+    { _id: videoId },
+    {
+      title,
+      description,
+      hashtags: Video.formatHashtags(hashtags),
+    }
+  );
+
+  return res.redirect(`/videos/${videoId}`);
 };
 
 export const uploadVideo = async (req, res) => {
-  const user = req.session.user;
+  const userId = req.session.user._id;
   const file = req.file;
   const { title, description, hashtags } = req.body;
 
@@ -29,9 +38,9 @@ export const uploadVideo = async (req, res) => {
       description,
       hashtags: Video.formatHashtags(hashtags),
       fileUrl: file.path,
-      owner: user._id,
+      owner: userId,
     });
-    const owner = await User.findById(user._id);
+    const owner = await User.findById(userId);
     owner.videos.push(newVideo._id);
     owner.save();
 
@@ -39,7 +48,7 @@ export const uploadVideo = async (req, res) => {
   } catch (error) {
     return res.status(400).render("pages/upload", {
       pageTitle: "Upload Video",
-      errorMessage: error._message,
+      errorMessage: error.message,
     });
   }
 };
