@@ -5,7 +5,7 @@ import {
   editUser,
   finishGithubLogin,
   logout,
-  seeUser,
+  seeUserProfile,
   startGithubLogin,
 } from "../controllers/userController";
 import { publicOnlyMiddleware, userOnlyMiddleware } from "../middleware";
@@ -18,5 +18,5 @@ userRouter.get("/logout", userOnlyMiddleware, logout);
 userRouter.get("/edit", userOnlyMiddleware, editUser);
 userRouter.get("/change-password", userOnlyMiddleware, changePassword);
 userRouter.get("/delete", deleteUser);
-userRouter.get("/:id", seeUser);
+userRouter.get("/:id", seeUserProfile);
 export default userRouter;

@@ -18,6 +18,7 @@ export const editVideo = async (req, res) => {
 };
 
 export const uploadVideo = async (req, res) => {
+  const user = req.session.user;
   const file = req.file;
   const { title, description, hashtags } = req.body;
 
@@ -27,6 +28,7 @@ export const uploadVideo = async (req, res) => {
       description,
       hashtags: Video.formatHashtags(hashtags),
       fileUrl: file.path,
+      owner: user._id,
     });
 
     return res.redirect("/");
