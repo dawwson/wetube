@@ -1,8 +1,10 @@
 const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
 const muteBtn = document.getElementById("mute");
-const time = document.getElementById("time");
 const volumeRange = document.getElementById("volume");
+const cuttentTime = document.getElementById("cuttentTime");
+const totalTime = document.getElementById("totalTime");
+const timeline = document.getElementById("timeline");
 
 let volumeValue = 0.5;
 video.volume = volumeValue;
@@ -44,6 +46,31 @@ const handleVolumeChange = (event) => {
   video.volume = value;
 };
 
+const handleLoadedMetadata = () => {
+  totalTime.innerText = formatTime(Math.floor(video.duration));
+  timeline.max = Math.floor(video.duration);
+};
+
+const handleTimeUpdate = () => {
+  cuttentTime.innerText = formatTime(Math.floor(video.currentTime));
+  timeline.value = Math.floor(video.currentTime);
+};
+
+const formatTime = (seconds) => {
+  return new Date(seconds * 1000).toISOString().substring(11, 19);
+};
+
+const handleTimelineChange = (event) => {
+  const value = event.target.value;
+  video.currentTime = value;
+};
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
-volumeRange.addEventListener("input", handleVolumeChange); // NOTE: input => 실시간 range 감지
+// NOTE: input => 실시간 range 감지
+volumeRange.addEventListener("input", handleVolumeChange);
+// NOTE: metadata를 불러올 때 발생
+video.addEventListener("loadedmetadata", handleLoadedMetadata);
+// NOTE: currentTime이 변경될 때 발생
+video.addEventListener("timeupdate", handleTimeUpdate);
+timeline.addEventListener("input", handleTimelineChange);
