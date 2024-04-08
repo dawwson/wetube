@@ -1,4 +1,6 @@
+const videoContainer = document.getElementById("videoContainer");
 const video = document.querySelector("video");
+const videoControls = document.getElementById("videoControls");
 const playBtn = document.getElementById("play");
 const muteBtn = document.getElementById("mute");
 const volumeRange = document.getElementById("volume");
@@ -6,8 +8,8 @@ const cuttentTime = document.getElementById("cuttentTime");
 const totalTime = document.getElementById("totalTime");
 const timeline = document.getElementById("timeline");
 const fullScreenBtn = document.getElementById("fullScreen");
-const videoContainer = document.getElementById("videoContainer");
 
+let controlsMovementTimeout = null;
 let volumeValue = 0.5;
 video.volume = volumeValue;
 
@@ -58,6 +60,23 @@ const handleTimeUpdate = () => {
   timeline.value = Math.floor(video.currentTime);
 };
 
+/**
+ * video에서 마우스를 움직이면 기존 timeout 취소하고 새로운 timeout 생성
+ * video에서 마우스를 멈추면 3초 후에 video control 사라짐
+ */
+const handleMouseMove = () => {
+  if (controlsMovementTimeout) {
+    clearTimeout(controlsMovementTimeout);
+    controlsMovementTimeout = null;
+  }
+  videoControls.classList.add("showing");
+  controlsMovementTimeout = setTimeout(hideControls, 3000);
+};
+
+const hideControls = () => {
+  videoControls.classList.remove("showing");
+};
+
 const formatTime = (seconds) => {
   return new Date(seconds * 1000).toISOString().substring(11, 19);
 };
@@ -87,5 +106,6 @@ volumeRange.addEventListener("input", handleVolumeChange);
 video.addEventListener("loadedmetadata", handleLoadedMetadata);
 // NOTE: currentTime이 변경될 때 발생
 video.addEventListener("timeupdate", handleTimeUpdate);
+video.addEventListener("mousemove", handleMouseMove);
 timeline.addEventListener("input", handleTimelineChange);
 fullScreenBtn.addEventListener("click", handleFullScreen);
