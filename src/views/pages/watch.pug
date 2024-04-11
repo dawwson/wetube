@@ -1,8 +1,8 @@
 extends ../index
 
 block content 
-  div#videoContainer
-    video(src=`/${video.fileUrl}`, width="1000px" )
+  div#videoContainer(data-video_id=video._id)
+    video(src=`/${video.fileUrl}`)
     div#videoControls.videoControls
       div.videoControls__play
         span#play.videoControls__playBtn

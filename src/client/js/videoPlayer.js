@@ -60,6 +60,14 @@ const formatTime = (seconds) => {
 };
 
 /**
+ * video 재생이 끝나면 조회수를 증가시키는 API 요청 보냄
+ */
+const handleEnded = async () => {
+  const videoId = videoContainer.dataset.video_id;
+  fetch(`/api/videos/${videoId}/view`, { method: "POST" });
+};
+
+/**
  * video가 멈춘 상태라면 video를 재생,
  * video가 재생되고 있는 상태라면 video를 일시정지
  */
@@ -131,6 +139,7 @@ const handleFullScreen = () => {
 videoContainer.addEventListener("mousemove", handleMouseMove);
 video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
+video.addEventListener("ended", handleEnded);
 playBtn.addEventListener("click", handlePlayAndStop);
 timeline.addEventListener("input", handleTimelineChange);
 volumeRange.addEventListener("input", handleVolumeChange);

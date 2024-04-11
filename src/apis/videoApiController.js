@@ -52,3 +52,17 @@ export const uploadVideo = async (req, res) => {
     });
   }
 };
+
+export const addViews = async (req, res) => {
+  const videoId = req.params.id;
+  const video = await Video.findById(videoId);
+
+  if (!video) {
+    return res.sendStatus(404);
+  }
+
+  video.meta.views += 1;
+  await video.save();
+
+  return res.sendStatus(200);
+};

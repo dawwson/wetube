@@ -6,7 +6,7 @@ import {
   joinUser,
   loginUser,
 } from "../apis/userApiController";
-import { editVideo, uploadVideo } from "../apis/videoApiController";
+import { addViews, editVideo, uploadVideo } from "../apis/videoApiController";
 import {
   avatarUploadMiddleware,
   publicOnlyMiddleware,
@@ -32,5 +32,6 @@ apiRouter.post(
   uploadVideo
 );
 apiRouter.post("/videos/:id/edit", userOnlyMiddleware, editVideo);
+apiRouter.post("/videos/:id/view", addViews);
 
 export default apiRouter;
