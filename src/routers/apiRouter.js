@@ -5,8 +5,12 @@ import {
   editUser,
   joinUser,
   loginUser,
-} from "../apis/userApiController";
-import { addViews, editVideo, uploadVideo } from "../apis/videoApiController";
+} from "../controllers/userApiController";
+import {
+  addViews,
+  editVideo,
+  uploadVideo,
+} from "../controllers/videoApiController";
 import {
   avatarUploadMiddleware,
   publicOnlyMiddleware,
