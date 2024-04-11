@@ -6,6 +6,7 @@ module.exports = {
     // 처리하고 싶은 파일의 경로
     main: "./src/client/js/main.js",
     videoPlayer: "./src/client/js/videoPlayer.js",
+    recorder: "./src/client/js/recorder.js",
   },
   mode: "development",
   watch: true, // entry의 파일이 수정되면 자동으로 webpack이 재실행됨

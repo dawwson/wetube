@@ -1,6 +1,9 @@
 extends ../index
 
 block content
+  div
+    video#preview
+    button#startBtn Start Recording
   if errorMessage 
     span=errorMessage
   form(method="POST", action="/api/videos/upload", enctype="multipart/form-data")
@@ -35,3 +38,6 @@ block content
       type="submit", 
       value="Upload Video"
     )
+
+block scripts
+  script(src="/static/js/recorder.js")
