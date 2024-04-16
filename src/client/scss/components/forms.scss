@@ -1,15 +1,17 @@
 form {
   max-width: 420px;
   margin: 0 auto;
+
   &:not(.search__form) {
     padding: 30px;
     background-color: rgba($color: $bg, $alpha: 0.7);
     border-radius: 10px;
-    border: 1px solid rgba($color: #fff, $alpha: 0.1);
+    border: 4px solid rgba($color: #fff, $alpha: 0.1);
   }
 }
 
-input:not(input[type="range"]) {
+input:not(input[type="range"]),
+input[type="submit"] {
   all: unset;
   padding: 15px 20px;
   border-radius: 5px;
@@ -19,8 +21,19 @@ input:not(input[type="range"]) {
   font-size: 16px;
   color: white;
   width: 90%;
+  cursor: pointer;
+
   &::placeholder {
     color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+input[type="text"],
+input[type="password"] {
+  cursor: text !important;
+
+  &:focus {
+    border-color: white;
   }
 }
 
@@ -28,9 +41,10 @@ input[type="submit"],
 .social__btn {
   border-radius: 5px;
   padding: 12px 20px;
-  background-color: white;
-  color: rgba($color: $red, $alpha: 1);
-  text-align: center;
-  cursor: pointer;
+  background-color: white !important; // 나중에 설정한 값보다 우선함
+  color: rgba($color: $red, $alpha: 1) !important;
+  text-align: center !important;
   display: block;
+  border: none;
+  font-weight: 600 !important;
 }

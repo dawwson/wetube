@@ -91,13 +91,17 @@ const handleStart = () => {
     preview.loop = true;
     preview.play();
   };
+
   recorder.start();
 };
 
 const init = async () => {
   stream = await navigator.mediaDevices.getUserMedia({
     audio: false,
-    video: true,
+    video: {
+      width: 1024,
+      height: 576,
+    },
   });
 
   preview.srcObject = stream;
