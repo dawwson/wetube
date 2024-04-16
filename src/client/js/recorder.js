@@ -8,27 +8,41 @@ let stream = null;
 let recorder = null;
 let videoFile = null;
 
+const files = {
+  input: "recording.webm",
+  output: "output.mp4",
+  thumbnail: "thumbnail.jpg",
+};
+
+const downloadFile = (fileUrl, fileName) => {
+  const a = document.createElement("a");
+  a.href = fileUrl;
+  a.download = fileName; // NOTE: navigating(x) 다운로드(o)
+  document.body.appendChild(a);
+  a.click();
+};
+
 const handleDownload = async () => {
   const ffmpeg = new FFmpeg();
   ffmpeg.on("log", ({ type, message }) => console.log(`[${type}] ${message}`));
 
   await ffmpeg.load();
-  await ffmpeg.writeFile("recording.webm", await fetchFile(videoFile));
+  await ffmpeg.writeFile(files.input, await fetchFile(videoFile));
   // ffmpeg 명령어 실행 : 녹화한 videFile을 초당 60프레임으로 인코딩해서 output.mp4로 변환
-  await ffmpeg.exec(["-i", "recording.webm", "-r", "60", "output.mp4"]);
+  await ffmpeg.exec(["-i", files.input, "-r", "60", files.output]);
   // ffmpeg 명령어 실행 : videoFile의 특정 시간대(1초)를 찾아서 첫 프레임의 스크린샷을 찍음
   await ffmpeg.exec([
     "-i",
-    "recording.webm",
+    files.input,
     "-ss",
     "00:00:01",
     "-frames:v",
     "1",
-    "thumbnail.jpg",
+    files.thumbnail,
   ]);
 
-  const mp4File = await ffmpeg.readFile("output.mp4");
-  const thumbnailFile = await ffmpeg.readFile("thumbnail.jpg");
+  const mp4File = await ffmpeg.readFile(files.output);
+  const thumbnailFile = await ffmpeg.readFile(files.thumbnail);
 
   const mp4Blob = new Blob([mp4File.buffer], { type: "video/mp4" });
   const thumbnailBlob = new Blob([thumbnailFile.buffer], { type: "image/jpg" });
@@ -36,21 +50,12 @@ const handleDownload = async () => {
   const mp4Url = URL.createObjectURL(mp4Blob);
   const thumbnailUrl = URL.createObjectURL(thumbnailBlob);
 
-  const mp4A = document.createElement("a");
-  mp4A.href = mp4Url;
-  mp4A.download = "MyRecording.mp4"; // NOTE: navigating(x) 다운로드(o)
-  document.body.appendChild(mp4A);
-  mp4A.click();
+  downloadFile(mp4Url, "MyRecording.mp4");
+  downloadFile(thumbnailUrl, "MyThumbnail.jpg");
 
-  const thumbnailA = document.createElement("a");
-  thumbnailA.href = thumbnailUrl;
-  thumbnailA.download = "MyThumbnail.jpg";
-  document.body.appendChild(thumbnailA);
-  thumbnailA.click();
-
-  await ffmpeg.deleteFile("recording.webm");
-  await ffmpeg.deleteFile("output.mp4");
-  await ffmpeg.deleteFile("thumbnail.jpg");
+  await ffmpeg.deleteFile(files.input);
+  await ffmpeg.deleteFile(files.output);
+  await ffmpeg.deleteFile(files.thumbnail);
 
   URL.revokeObjectURL(videoFile);
   URL.revokeObjectURL(mp4Url);
