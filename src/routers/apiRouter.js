@@ -32,7 +32,10 @@ apiRouter.post("/users/change-password", userOnlyMiddleware, changePassword);
 apiRouter.post(
   "/videos/upload",
   userOnlyMiddleware,
-  videoUploadMiddleware.single("video"),
+  videoUploadMiddleware.fields([
+    { name: "video", maxCount: 1 },
+    { name: "thumbnail", maxCount: 1 },
+  ]),
   uploadVideo
 );
 apiRouter.post("/videos/:id/edit", userOnlyMiddleware, editVideo);

@@ -29,7 +29,7 @@ export const editVideo = async (req, res) => {
 
 export const uploadVideo = async (req, res) => {
   const userId = req.session.user._id;
-  const file = req.file;
+  const { video, thumbnail } = req.files; // NOTE: 각 필드가 배열로 들어옴
   const { title, description, hashtags } = req.body;
 
   try {
@@ -37,7 +37,8 @@ export const uploadVideo = async (req, res) => {
       title,
       description,
       hashtags: Video.formatHashtags(hashtags),
-      fileUrl: file.path,
+      fileUrl: video[0].path,
+      thumbnailUrl: thumbnail[0].path,
       owner: userId,
     });
     const owner = await User.findById(userId);
