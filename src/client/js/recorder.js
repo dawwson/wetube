@@ -2,7 +2,7 @@ import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { fetchFile } from "@ffmpeg/util";
 
 const preview = document.getElementById("preview");
-const startBtn = document.getElementById("startBtn");
+const actionBtn = document.getElementById("actionBtn");
 
 let stream = null;
 let recorder = null;
@@ -14,15 +14,11 @@ const files = {
   thumbnail: "thumbnail.jpg",
 };
 
-const downloadFile = (fileUrl, fileName) => {
-  const a = document.createElement("a");
-  a.href = fileUrl;
-  a.download = fileName; // NOTE: navigating(x) 다운로드(o)
-  document.body.appendChild(a);
-  a.click();
-};
-
 const handleDownload = async () => {
+  actionBtn.removeEventListener("click", handleDownload);
+  actionBtn.innerText = "Transcoding...";
+  actionBtn.disabled = true;
+
   const ffmpeg = new FFmpeg();
   ffmpeg.on("log", ({ type, message }) => console.log(`[${type}] ${message}`));
 
@@ -60,20 +56,32 @@ const handleDownload = async () => {
   URL.revokeObjectURL(videoFile);
   URL.revokeObjectURL(mp4Url);
   URL.revokeObjectURL(thumbnailUrl);
+
+  actionBtn.addEventListener("click", handleStart);
+  actionBtn.innerText = "Record Again";
+  actionBtn.disabled = false;
+};
+
+const downloadFile = (fileUrl, fileName) => {
+  const a = document.createElement("a");
+  a.href = fileUrl;
+  a.download = fileName; // NOTE: navigating(x) 다운로드(o)
+  document.body.appendChild(a);
+  a.click();
 };
 
 const handleStop = () => {
-  startBtn.innerText = "Download Recording";
-  startBtn.removeEventListener("click", handleStop);
-  startBtn.addEventListener("click", handleDownload);
+  actionBtn.innerText = "Download Recording";
+  actionBtn.removeEventListener("click", handleStop);
+  actionBtn.addEventListener("click", handleDownload);
 
   recorder.stop();
 };
 
 const handleStart = () => {
-  startBtn.innerText = "Stop Recording";
-  startBtn.removeEventListener("click", handleStart);
-  startBtn.addEventListener("click", handleStop);
+  actionBtn.innerText = "Stop Recording";
+  actionBtn.removeEventListener("click", handleStart);
+  actionBtn.addEventListener("click", handleStop);
 
   recorder = new MediaRecorder(stream);
   recorder.ondataavailable = (event) => {
@@ -98,4 +106,4 @@ const init = async () => {
 
 init();
 
-startBtn.addEventListener("click", handleStart);
+actionBtn.addEventListener("click", handleStart);
