@@ -76,18 +76,7 @@ export const editUser = async (req, res) => {
   const { _id, avatarUrl } = req.session.user;
   const { email, username, name, location } = req.body;
   const file = req.file;
-  /**
-{
-  fieldname: 'avatar',
-  originalname: 'IMG_1276.JPG',
-  encoding: '7bit',
-  mimetype: 'image/jpeg',
-  destination: 'uploads/',
-  filename: '178af69d130db4169590fc3287dfd239',
-  path: 'uploads/178af69d130db4169590fc3287dfd239',
-  size: 5163303
-}
- */
+
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
