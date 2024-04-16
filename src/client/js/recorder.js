@@ -31,7 +31,7 @@ const handleDownload = async () => {
     "-i",
     files.input,
     "-ss",
-    "00:00:01",
+    "00:00:00",
     "-frames:v",
     "1",
     files.thumbnail,
