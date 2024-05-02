@@ -38,7 +38,7 @@ apiRouter.post(
   ]),
   uploadVideo
 );
-apiRouter.post("/videos/:id/edit", userOnlyMiddleware, editVideo);
-apiRouter.post("/videos/:id/view", addViews);
+apiRouter.post("/videos/:id([0-9a-f]{24})/edit", userOnlyMiddleware, editVideo);
+apiRouter.post("/videos/:id([0-9a-f]{24})/view", addViews);
 
 export default apiRouter;
