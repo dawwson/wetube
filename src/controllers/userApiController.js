@@ -36,6 +36,8 @@ export const joinUser = async (req, res) => {
       name,
       location,
     });
+
+    req.flash("success", "New account has been created. Please log in.");
     return res.redirect("/login");
   } catch (error) {
     return res.status(400).render("upload", {
@@ -67,6 +69,8 @@ export const loginUser = async (req, res) => {
   req.session.loggedIn = true;
   req.session.user = user;
 
+  req.flash("info", "You're logged in.");
+
   return res.redirect("/");
 };
 
@@ -90,6 +94,7 @@ export const editUser = async (req, res) => {
   );
   req.session.user = updatedUser;
 
+  req.flash("info", "Your account has been updated.");
   return res.redirect("/users/edit");
 };
 
@@ -118,5 +123,6 @@ export const changePassword = async (req, res) => {
   await user.save();
 
   // TODO: send notification
+  req.flash("info", "Your password has been changed. You will be logged out.");
   return res.redirect("/users/logout");
 };

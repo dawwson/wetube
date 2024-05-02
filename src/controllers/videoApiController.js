@@ -15,15 +15,12 @@ export const editVideo = async (req, res) => {
     return res.status(403).redirect("/");
   }
 
-  await Video.updateOne(
-    { _id: videoId },
-    {
-      title,
-      description,
-      hashtags: Video.formatHashtags(hashtags),
-    }
-  );
-
+  await Video.findByIdAndUpdate(videoId, {
+    title,
+    description,
+    hashtags: Video.formatHashtags(hashtags),
+  });
+  req.flash("success", "Changes saved.");
   return res.redirect(`/videos/${videoId}`);
 };
 

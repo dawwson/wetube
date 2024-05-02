@@ -98,7 +98,13 @@ export const editUser = (req, res) => {
 };
 
 export const changePassword = (req, res) => {
-  res.render("pages/change-password", { pageTitle: "Change Password" });
+  const user = req.session.user;
+
+  if (user.socialOnly) {
+    req.flash("error", "Can't change password.");
+    return res.redirect("/");
+  }
+  return res.render("pages/change-password", { pageTitle: "Change Password" });
 };
 
 export const seeUserProfile = async (req, res) => {

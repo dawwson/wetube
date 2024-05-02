@@ -43,6 +43,7 @@ export const editVideo = async (req, res) => {
   }
 
   if (String(video.owner) !== String(user._id)) {
+    req.flash("error", "Not authorized.");
     return res.status(403).redirect("/");
   }
 
@@ -59,6 +60,7 @@ export const deleteVideo = async (req, res) => {
   }
 
   if (String(video.owner) !== String(user._id)) {
+    req.flash("error", "Not authorized.");
     return res.status(403).redirect("/");
   }
 

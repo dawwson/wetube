@@ -38,3 +38,43 @@ main {
   margin: 0 auto;
   margin-top: 50px;
 }
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+}
+.message {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100px;
+  margin: 0 auto;
+  min-width: 200px;
+  max-width: fit-content;
+  padding: 10px 20px;
+  border-radius: 10000px;
+  text-align: center;
+  animation: fadeOut 0.5s ease-in-out forwards;
+  animation-delay: 2s;
+
+  &.error {
+    background-color: tomato;
+    color: white;
+  }
+
+  &.info {
+    background-color: rgb(78, 78, 78);
+    color: white;
+  }
+
+  &.success {
+    background-color: rgb(66, 165, 0);
+    color: white;
+  }
+}
