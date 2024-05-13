@@ -25,7 +25,7 @@ export const searchVideo = async (req, res) => {
 
 export const watchVideo = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id).populate("owner");
+  const video = await Video.findById(id).populate("owner").populate("comments");
 
   if (!video) {
     return res.render("pages/404", { pageTitle: "Video not found." });

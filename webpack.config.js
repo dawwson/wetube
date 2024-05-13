@@ -1,12 +1,15 @@
 const MiniCssExtractrPlugin = require("mini-css-extract-plugin");
 const path = require("path");
 
+const BASE_JS = "./src/client/js";
+
 module.exports = {
   entry: {
     // 처리하고 싶은 파일의 경로
-    main: "./src/client/js/main.js",
-    videoPlayer: "./src/client/js/videoPlayer.js",
-    recorder: "./src/client/js/recorder.js",
+    main: BASE_JS + "/main.js",
+    videoPlayer: BASE_JS + "/videoPlayer.js",
+    recorder: BASE_JS + "/recorder.js",
+    commentSection: BASE_JS + "/commentSection.js",
   },
   mode: "development",
   watch: true, // entry의 파일이 수정되면 자동으로 webpack이 재실행됨

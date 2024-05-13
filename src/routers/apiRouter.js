@@ -8,6 +8,7 @@ import {
 } from "../controllers/userApiController";
 import {
   addViews,
+  createComment,
   editVideo,
   uploadVideo,
 } from "../controllers/videoApiController";
@@ -40,5 +41,6 @@ apiRouter.post(
 );
 apiRouter.post("/videos/:id([0-9a-f]{24})/edit", userOnlyMiddleware, editVideo);
 apiRouter.post("/videos/:id([0-9a-f]{24})/view", addViews);
+apiRouter.post("/videos/:id([0-9a-f]{24})/comment", createComment);
 
 export default apiRouter;

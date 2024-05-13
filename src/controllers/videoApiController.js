@@ -1,5 +1,6 @@
 import User from "../models/User";
 import Video from "../models/Video";
+import Comment from "../models/Comment";
 
 export const editVideo = async (req, res) => {
   const userId = req.session.user._id;
@@ -63,4 +64,27 @@ export const addViews = async (req, res) => {
   await video.save();
 
   return res.sendStatus(200);
+};
+
+export const createComment = async (req, res) => {
+  const user = req.session.user;
+  const videoId = req.params.id;
+  const text = req.body.text;
+
+  const video = await Video.findById(videoId);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+
+  const comment = await Comment.create({
+    text,
+    owner: user._id,
+    video: videoId,
+  });
+
+  // TODO: 필요시 user.comments 추가
+  video.comments.push(comment._id);
+  video.save();
+
+  return res.status(201).json({ id: comment._id });
 };
